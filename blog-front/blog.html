@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,inital-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>首页</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+    <link rel="stylesheet" href="./static/css/typo.css">
+    <link rel="stylesheet" href="./static/css/animate.css">
+    <link rel="stylesheet" href="./static/lib/prism/prism.css">
+    <link rel="stylesheet" href="./static/lib/tocbot/tocbot.css">
     <link rel="stylesheet" href="./static/css/me.css">
 </head>
 <body>
@@ -33,7 +37,7 @@
 </nav>
 
     <!--中间内容-->
-    <div class="m-container-small m-padded-tb-large">
+    <div id="waypoint" class="m-container-small m-padded-tb-large animated fadeIn">
        <div class="ui container">
            <!--头部-->
            <div class="ui centered aligned top attached segment">
@@ -63,16 +67,22 @@
 
                <h2 class="ui center aligned header">中国科学院软件研究所简介 </h2>
                 <br>
-               <div id="content" class="m-padded-lr-responsive m-margin-tb-large">
-                   中国科学院软件研究所成立于1985年3月1日，是一所致力于计算机科学理论和软件高新技术的研究与发展的综合性基地型研究所。所址位于北京海淀区中关村南四街4号中国科学院软件园内。
+               <div id="content" class="typo typo-selection js-toc-content m-padded-lr-responsive m-margin-tb-large">
+                   <h2 id="section1">一、关于 <i class="serif">Typo.css</i></h2>
+                    <pre><code class="language-css">p{color:red}</code></pre>
+                   <p><i class="serif">Typo.css</i> 的目的是，在一致化浏览器排版效果的同时，构建最适合中文阅读的网页排版。</p>
+                   <h4>现状和如何去做：</h4>
 
+                   <h3 id="section3">三、附录</h3>
 
+                   <h5 id="appendix1">1、<i class="serif">Typo.css</i> 排版偏重点</h5>
 
-                   　　从五位筹建者，到现在的千余名师生员工；从借用房间做研究，到如今拥有三栋科研楼和无锡
+                   <h5 id="appendix2">2、开源许可</h5>
+
                </div>
 
                <!--标签-->
-               <div class="m-padded-lr">
+               <div class="m-padded-lr-responsive">
                    <div class="ui basic teal left pointing label">方法论</div>
                </div>
 
@@ -113,7 +123,7 @@
                </div>
            </div>
            <!--留言区域-->
-           <div class="ui bottom attached segment">
+           <div id="comment-container" class="ui bottom attached segment">
                <div class="ui teal basic segment">
                    <div class="ui comments">
                        <h3 class="ui dividing header">Comments</h3>
@@ -202,6 +212,28 @@
        </div>
     </div>
 
+    <!--浮动栏-->
+    <div id="toolbar" class="m-fixed m-right-bottom m-padded" style="display:none;">
+        <div class="ui vertical icon buttons">
+            <button type="button" class="ui toc teal button">目录</button>
+            <a href="#comment-container" class="ui  teal button">留言</a>
+            <button class="ui wechat icon button"><i class="weixin icon"></i></button>
+            <button type="button" id="toTop" class="ui button"><i class="chevron up icon"></i></button>
+        </div>
+    </div>
+
+    <!--目录-->
+    <div class="ui toc-container flowing popup transition hidden" style="width:250px;">
+        <ol class="js-toc">
+
+        </ol>
+    </div>
+
+    <!--二维码-->
+    <div id="qrcode" class="ui wechat-qr flowing popup transition hidden" style="width:130px !important;">
+        <!--<img src="./static/images/wechat.png" alt="" class="ui rounded image" style="width: 120px !important;">-->
+    </div>
+
     <!--底部-->
     <footer class="ui inverted vertical segment m-padded-tb-massive">
         <div class="ui center aligned container">
@@ -243,8 +275,14 @@
 
 <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+<script src="./static/lib/prism/prism.js"></script>
+<script src="./static/lib/tocbot/tocbot.min.js"></script>
+<script src="./static/lib/qrcode/qrcode.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+<script src="./static/lib/waypoints/jquery.waypoints.min.js"></script>
 
 <script>
+
     $('.menu.toggle').click(function(){
         $('.m-item').toggleClass('m-mobile-hide');
     });
@@ -254,6 +292,55 @@
         on:'click',
         position:'bottom center'
     });
+
+    tocbot.init({
+        // Where to render the table of contents.
+        tocSelector: '.js-toc',
+        // Where to grab the headings to build the table of contents.
+        contentSelector: '.js-toc-content',
+        // Which headings to grab inside of the contentSelector element.
+        headingSelector: 'h1, h2, h3',
+        // For headings inside relative or absolute positioned containers within content.
+        hasInnerContainers: true,
+    });
+
+    $('.toc.button').popup({
+        popup:$('.toc-container.popup'),
+        on:'click',
+        position:'left center'
+    });
+
+
+    $('.wechat').popup({
+        popup : $('.wechat-qr.popup'),
+        position: 'left center'
+    });
+
+    var qrcode = new QRCode("qrcode", {
+        text: "http://jindo.dev.naver.com/collie",
+        width: 110,
+        height: 110,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+    });
+
+
+    $('#toTop').click(function(){
+        $(window).scrollTo(0,500);
+    });
+
+    var waypoint = new Waypoint({
+        element: document.getElementById('waypoint'),
+        handler: function(direction) {
+            if(direction == 'down'){
+                $('#toolbar').show();
+            }else{
+                $('#toolbar').hide(500);
+            }
+            console.log('Scrolled to waypoint!')
+        }
+    })
 </script>
 </body>
 </html>
