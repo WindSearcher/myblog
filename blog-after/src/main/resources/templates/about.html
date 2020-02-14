@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>关于我</title>
@@ -10,7 +10,7 @@
 <body>
 
 <!--导航-->
-<nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
+<nav th:replace="_fragments :: menu(5)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui purple header item">Blog</h2>
@@ -40,7 +40,7 @@
 
             <div class="eleven wide column">
                 <div class="ui segment">
-                    <img src="../static/images/k4.jpg" class="ui rounded fluid image">
+                    <img src="../static/image/关于我.jpg" th:src="@{/image/关于我.jpg}" class="ui rounded fluid image">
                 </div>
             </div>
 
@@ -49,8 +49,8 @@
                     <div class="ui header">关于我</div>
                 </div>
                 <div class="ui attached segment">
-                    <p class="m-text">你好</p>
-                    <p class="m-text">朋友</p>
+                    <p class="m-text">淡茶一杯</p>
+                    <p class="m-text">闲看庭前花开花落</p>
                 </div>
                 <div class="ui attached segment">
                     <div class="ui orange basic left pointing label">编程</div>
@@ -60,18 +60,19 @@
                 </div>
                 <div class="ui attached segment">
                     <div class="ui teal basic left pointing label m-margin-tb-tiny">Java</div>
-                    <div class="ui teal basic left pointing label m-margin-tb-tiny">JavaScript</div>
-                    <div class="ui teal basic left pointing label m-margin-tb-tiny">MYSQL</div>
+                    <div class="ui teal basic left pointing label m-margin-tb-tiny">Redis</div>
+                    <div class="ui teal basic left pointing label m-margin-tb-tiny">MySQL</div>
                     <div class="ui teal basic left pointing label m-margin-tb-tiny">...</div>
                 </div>
                 <div class="ui bottom attached segment">
-                    <a href="#" class="ui circular icon button"><i class="github icon"></i></a>
-                    <a href="#" class="ui wechat circular icon button"><i class="weixin icon"></i></a>
-                    <a href="#" class="ui qq circular icon button" data-content="1437810640" data-position="bottom center"><i class="qq icon"></i></a>
+                    <a href="#" class="ui github circular icon button" data-content="1793521005" data-position="bottom center"><i class="github icon"></i></a>
+                    <a href="#" class="ui wechat circular icon button" data-content="1793521005" data-position="bottom center"><i class="weixin icon"></i></a>
+                    <a href="#" class="ui qq circular icon button" data-content="1793521005" data-position="bottom center"><i class="qq icon"></i></a>
                 </div>
 
+
                 <div class="ui wechat-qr flowing popup transition hidden">
-                    <img src="../static/images/wechat.png" alt="" class="ui rounded image" style="width: 110px">
+                    <img src="../static/image/微信名片.png" alt="" class="ui rounded image" style="width: 110px">
                 </div>
 
             </div>
@@ -84,13 +85,13 @@
 <br>
 <br>
 <!--底部footer-->
-<footer  class="ui inverted vertical segment m-padded-tb-massive">
+<footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
     <div class="ui center aligned container">
         <div class="ui inverted divided stackable grid">
             <div class="three wide column">
                 <div class="ui inverted link list">
                     <div class="item">
-                        <img src="../static/images/k4.jpg" class="ui rounded image" alt="" style="width: 110px">
+                        <img src="../static/image/1.jpg" class="ui rounded image" alt="" style="width: 110px">
                     </div>
                 </div>
             </div>
@@ -127,11 +128,9 @@
         $('.m-item').toggleClass('m-mobile-hide');
     });
 
-    $('.wechat').popup({
-        popup : $('.wechat-qr'),
-        position: 'bottom center'
-    });
+    $('.wechat').popup();
     $('.qq').popup();
+    $('.github').popup();
 </script>
 </body>
 </html>
