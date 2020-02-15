@@ -25,9 +25,17 @@ public class Blog {
     @Column(name = "title",type = MySqlTypeConstant.CHAR)
     private String title;
 
+    //分类id
+    @Column(name = "typeId",type= MySqlTypeConstant.BIGINT)
+    private Long typeId;
+
     //内容
-    @Column(name = "content",type = MySqlTypeConstant.CHAR)
+    @Column(name = "content",type = MySqlTypeConstant.TEXT)
     private String content;
+
+    //描述
+    @Column(name = "description",type = MySqlTypeConstant.CHAR)
+    private String description;
 
     //首图
     @Column(name = "firstPicture",type = MySqlTypeConstant.CHAR)
@@ -43,26 +51,26 @@ public class Blog {
 
     //是否 开启赞赏
     @Column(name = "appreciation",type = MySqlTypeConstant.INT)
-    private boolean appreciation;
+    private Boolean appreciation;
 
     //是否开启转载声明
     @Column(name = "shareStatement",type = MySqlTypeConstant.INT)
-    private boolean shareStatement;
+    private Boolean shareStatement;
 
     @Column(name = "commentabled",type = MySqlTypeConstant.INT)
-    private boolean commentabled;
+    private Boolean commentabled;
 
     @Column(name = "published",type = MySqlTypeConstant.INT)
-    private boolean published;
+    private Boolean published;
 
     @Column(name = "recommend",type = MySqlTypeConstant.INT)
-    private boolean recommend;
+    private Boolean recommend;
 
-    @Column(name = "createTime",type = MySqlTypeConstant.DATETIME)
-    private Date createTime;
+    @Column(name = "createDate",type = MySqlTypeConstant.DATETIME)
+    private Date createDate;
 
-    @Column(name = "updateTime",type = MySqlTypeConstant.DATETIME)
-    private Date updateTime;
+    @Column(name = "updateDate",type = MySqlTypeConstant.DATETIME)
+    private Date updateDate;
 
     private Type type;
     private List<Tag> tags = new ArrayList<>();

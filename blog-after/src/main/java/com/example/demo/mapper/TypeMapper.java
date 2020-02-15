@@ -19,6 +19,10 @@ public interface TypeMapper {
     @Select("select * from type")
     public List<Type> getAllType();
 
+    //根据分类创建时间来展示
+    @Select("select * from type order by id desc limit 0,#{pageSize}")
+    public List<Type> getTopType(@Param("pageSize") Integer pageSize);
+
     @Select("select * from type where name = #{name}")
     public Type getTypeByName(@Param("name") String name);
 

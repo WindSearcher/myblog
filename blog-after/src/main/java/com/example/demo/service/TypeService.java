@@ -14,6 +14,9 @@ public interface TypeService {
 
     public List<Type> getAllType();
 
+    //取前几条
+    public List<Type> getTopType(Integer pageSize);
+
     public List<Type> listType(Integer page, Integer pageSize);
 
     public void updateType(Long id,Type type);

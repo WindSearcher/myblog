@@ -54,21 +54,20 @@
 <!--中间-->
 <div  class="m-container-small m-padded-tb-big">
     <div class="ui container">
-        <!--查询表单需要是form提交数据-->
-        <form th:action="@{/admin/blogs/search}" method="post" class="ui segment form">
+        <!--<form  method="post" class="ui segment form">
+            <input type="hidden" name="page">
 
-            <!--fields代表一个区域,inline缩短区域的效果-->
             <div class="inline fields">
                 <div class="field">
                     <input type="text" name="title" placeholder="标题">
                 </div>
                 <div class="field">
-                    <!--dropdown是下拉框效果-->
+
                     <div class="ui selection dropdown">
                         <input type="hidden" name="typeId">
                         <i class="dropdown icon"></i>
                         <div class="default text">分类</div>
-                        <!--menu是菜单-->
+
                         <div class="menu">
                             <div th:each="type : ${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">错误日志</div>
                         </div>
@@ -81,14 +80,20 @@
                     </div>
                 </div>
                 <div class="field">
-                    <button class="ui mini purple basic button" id="search-btn" type="submit"><i class="search icon"></i>搜索</button>
+                    <button class="ui mini purple basic button" id="search-btn" type="button"><i class="search icon"></i>搜索</button>
                 </div>
             </div>
 
-        </form>
-
+        </form>-->
         <div id="table-container">
-            <table class="ui celled table">
+
+            <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+                <i class="close icon"></i>
+                <div class="header">提示：</div>
+                <p th:text="${message}">恭喜，操作成功！</p>
+            </div>
+
+            <table  class="ui celled table">
                 <thead>
                 <tr>
                     <th>标题</th>
@@ -101,9 +106,9 @@
                 <tbody>
                 <tr th:each="blog:${pageInfo.list}">
                     <td th:text="${blog.getTitle()}">刻意练习清单</td>
-                    <td th:text="${blog.getType().name}">认知升级</td>
+                    <td th:text="${blog.getType().getName()}">认知升级</td>
                     <td th:text="${blog.getRecommend()==1?'是':'否'}">是</td>
-                    <td th:text="${#dates.format(blog.getUpdateTime(),'yyyy-MM-dd')}">2017-10-02 09:45</td>
+                    <td th:text="${#dates.format(blog.getUpdateDate(),'yyyy-MM-dd')}">2017-10-02 09:45</td>
                     <td>
                         <a href="#" th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui mini purple basic button">编辑</a>
                         <a th:href="@{/admin/blogs/{id}/delete(id=${blog.id})}" onclick="return confirm('您确定要删除吗？')" class="ui mini red basic button">删除</a>
@@ -128,12 +133,6 @@
                 </tr>
                 </tfoot>
             </table>
-
-            <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
-                <i class="close icon"></i>
-                <div class="header">提示：</div>
-                <p th:text="${message}">恭喜，操作成功！</p>
-            </div>
         </div>
 
 
@@ -200,6 +199,8 @@
                 .closest('.message')
                 .transition('fade');
         });
+
+
 </script>
 </body>
 </html>

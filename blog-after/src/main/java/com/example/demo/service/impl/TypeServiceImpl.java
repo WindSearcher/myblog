@@ -23,7 +23,7 @@ public class TypeServiceImpl implements TypeService {
 
     @Override
     public Type getType(Long id) {
-        return null;
+        return typeMapper.getType(id);
     }
 
 
@@ -33,6 +33,13 @@ public class TypeServiceImpl implements TypeService {
 
     public List<Type> getAllType(){
         return typeMapper.getAllType();
+    }
+
+    /*
+    * 根据分类创建的时间顺序来展示
+    * */
+    public List<Type> getTopType(Integer pageSize){
+        return typeMapper.getTopType(pageSize);
     }
 
     @Override
