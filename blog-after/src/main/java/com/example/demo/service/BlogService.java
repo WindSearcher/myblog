@@ -8,6 +8,8 @@ public interface BlogService {
 
     public Blog getBlog(Long id);
 
+    public Blog getAndConvert(Long id);
+
     public List<Blog> getAllBlog();
 
     //根据分类ID查询

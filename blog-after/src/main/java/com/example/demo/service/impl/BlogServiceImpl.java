@@ -4,6 +4,8 @@ import com.example.demo.entity.Blog;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.mapper.BlogMapper;
 import com.example.demo.service.BlogService;
+import com.example.demo.util.MarkdownUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,21 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Blog getBlog(Long id) {
+        //需要转化markdown成html代码
         return blogMapper.getBlog(id);
+    }
+
+    @Override
+    public Blog getAndConvert(Long id){
+        Blog blog = blogMapper.getBlog(id);
+        if(blog == null){
+            throw new NotFoundException("博客不存在");
+        }
+        Blog b = new Blog();
+        //做一个深复制
+        BeanUtils.copyProperties(blog,b);
+        b.setContent(MarkdownUtils.markdownToHtmlExtensions(b.getContent()));
+        return b;
     }
 
     @Override

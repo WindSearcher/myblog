@@ -29,17 +29,21 @@ public class User {
     @Column(name = "password",type = MySqlTypeConstant.CHAR)
     private String password;
 
+    //头像
+    @Column(name = "avatar",type = MySqlTypeConstant.CHAR)
+    private String avatar;
+
     @Column(name = "email",type = MySqlTypeConstant.CHAR)
     private String email;
 
     @Column(name = "type",type = MySqlTypeConstant.INT)
     private Integer type;
 
-    @Column(name = "createTime",type = MySqlTypeConstant.DATETIME)
-    private Date createTime;
+    @Column(name = "createDate",type = MySqlTypeConstant.DATETIME)
+    private Date createDate;
 
-    @Column(name = "updateTime",type = MySqlTypeConstant.DATETIME)
-    private Date updateTime;
+    @Column(name = "updateDate",type = MySqlTypeConstant.DATETIME)
+    private Date updateDate;
 
     private List<Blog> blogs = new ArrayList<>();
 }
