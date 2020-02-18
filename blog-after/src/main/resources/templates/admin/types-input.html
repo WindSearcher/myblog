@@ -39,27 +39,26 @@
     <!--中间内容-->
     <div class="m-container-small m-padded-tb-large">
        <div class="ui container">
-           <form action="#" th:action="@{/admin/types/save}" method="post" th:object="${type}" class="ui form">
+           <form action="#" th:action="@{/admin/types/save}" method="post" class="ui form">
                <div class="required field">
                    <div class="ui left labeled input">
                        <label class="ui teal basic label">名称</label>
-                       <input type="text" name="name" placeholder="分类名称" th:value="*{name}">
+                       <input type="text" name="name" placeholder="分类名称">
                    </div>
                </div>
 
                <div class="ui error message"></div>
-                <!--/*/
-                <div class="ui negative message" th:if="${#fields.hasErrors('name')}">
-                    <i class="close icon"></i>
-                    <div class="header">验证失败</div>
-                    <p th:errors="*{name}">提交信息不符合规则</p>
-                </div>
-                /*/-->
+
                <div class="ui right aligned container">
                    <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
                    <button class="ui submit secondary button">提交</button>
                </div>
            </form>
+           <div class="ui success message" th:if="${message}">
+               <i class="close icon"></i>
+               <div class="header">提示：</div>
+               <p th:text="${message}">恭喜，操作成功！</p>
+           </div>
        </div>
     </div>
 

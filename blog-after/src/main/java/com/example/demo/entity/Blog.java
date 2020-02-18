@@ -29,6 +29,10 @@ public class Blog {
     @Column(name = "typeId",type= MySqlTypeConstant.BIGINT)
     private Long typeId;
 
+    //用户ID
+    @Column(name = "userId",type = MySqlTypeConstant.BIGINT)
+    private Long userId;
+
     //内容
     @Column(name = "content",type = MySqlTypeConstant.TEXT)
     private String content;
@@ -46,24 +50,26 @@ public class Blog {
     private String flag;
 
     //浏览次数
-    @Column(name = "views",type = MySqlTypeConstant.INT)
+    @Column(name = "views",type = MySqlTypeConstant.INT,defaultValue = "0")
     private Integer views;
 
-    //是否 开启赞赏
-    @Column(name = "appreciation",type = MySqlTypeConstant.INT)
+    //是否 开启赞赏，默认开启
+    @Column(name = "appreciation",type = MySqlTypeConstant.INT,defaultValue = "1")
     private Boolean appreciation;
 
     //是否开启转载声明
-    @Column(name = "shareStatement",type = MySqlTypeConstant.INT)
+    @Column(name = "shareStatement",type = MySqlTypeConstant.INT,defaultValue = "1")
     private Boolean shareStatement;
 
-    @Column(name = "commentabled",type = MySqlTypeConstant.INT)
+    //是否开启评论
+    @Column(name = "commentabled",type = MySqlTypeConstant.INT,defaultValue = "1")
     private Boolean commentabled;
 
     @Column(name = "published",type = MySqlTypeConstant.INT)
     private Boolean published;
 
-    @Column(name = "recommend",type = MySqlTypeConstant.INT)
+    //推荐，需要手动开启
+    @Column(name = "recommend",type = MySqlTypeConstant.INT,defaultValue = "0")
     private Boolean recommend;
 
     @Column(name = "createDate",type = MySqlTypeConstant.DATETIME)

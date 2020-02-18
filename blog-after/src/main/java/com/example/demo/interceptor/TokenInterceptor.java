@@ -57,7 +57,7 @@ public class TokenInterceptor implements HandlerInterceptor {
                 }
 
                 //获取用户信息
-                User user = userService.findUserById(Integer.parseInt(userId));
+                User user = userService.findUserById(Long.parseLong(userId));
 
                 if (user == null) {
                     throw new RuntimeException("用户不存在，请重新登录");

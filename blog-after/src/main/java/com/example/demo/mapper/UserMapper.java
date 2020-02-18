@@ -13,5 +13,5 @@ public interface UserMapper {
     User findByUsernameAndPassword(@Param("username") String username,@Param("password") String password);
 
     @Select("select * from user where id = #{id}")
-    User findUserById(@Param("id") Integer id);
+    User findUserById(@Param("id") Long id);
 }

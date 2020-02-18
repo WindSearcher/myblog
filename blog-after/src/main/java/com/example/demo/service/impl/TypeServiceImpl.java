@@ -1,7 +1,6 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.Type;
-import com.example.demo.exception.NotFoundException;
 import com.example.demo.mapper.TypeMapper;
 import com.example.demo.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +30,8 @@ public class TypeServiceImpl implements TypeService {
         return typeMapper.getTypeByName(name);
     }
 
-    public List<Type> getAllType(){
-        return typeMapper.getAllType();
+    public List<Type> getAllType(Long userId){
+        return typeMapper.getAllType(userId);
     }
 
     /*
@@ -48,12 +47,8 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public void updateType(Long id, Type type) {
-        Type t = typeMapper.getType(id);
-        if(t == null){
-            throw new NotFoundException("不存在");
-        }
-        typeMapper.updateType(id,type);
+    public void updateType(Type type) {
+        typeMapper.updateType(type);
     }
 
     @Override

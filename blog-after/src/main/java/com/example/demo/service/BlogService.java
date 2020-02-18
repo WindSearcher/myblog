@@ -10,14 +10,14 @@ public interface BlogService {
 
     public Blog getAndConvert(Long id);
 
-    public List<Blog> getAllBlog();
+    public List<Blog> getAllBlog(Long userId);
 
     //根据分类ID查询
     public List<Blog> getAllTypeBlog(Long typeId);
 
     public void saveBlog(Blog blog);
 
-    public void updateBlog(Long id,Blog blog);
+    public void updateBlog(Blog blog);
 
     public void deleteBlog(Long id);
 

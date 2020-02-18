@@ -12,19 +12,19 @@ public interface BlogMapper {
     public Blog getBlog(@Param("id") Long id);
 
 
-    @Select("select * from blog")
-    public List<Blog> getAllBlog();
+    @Select("select * from blog where userId = #{userId}")
+    public List<Blog> getAllBlog(@Param("userId") Long userId);
 
     @Select("select * from blog where typeId = #{typeId}")
     public List<Blog> getAllTypeBlog(@Param("typeId") Long typeId);
 
 
 
-    @Insert("insert into blog(title,content,firstPicture,flag,views,appreciation,shareStatement,commentabled,recommend,typeId,createDate,updateDate) values(#{title},#{content},#{firstPicture},#{flag},#{views},#{appreciation},#{shareStatement},#{commentabled},#{recommend},#{typeId},#{createDate},#{updateDate})")
+    @Insert("insert into blog(title,content,firstPicture,flag,views,appreciation,shareStatement,commentabled,recommend,typeId,userId,description,createDate,updateDate) values(#{title},#{content},#{firstPicture},#{flag},#{views},#{appreciation},#{shareStatement},#{commentabled},#{recommend},#{typeId},#{userId},#{description},#{createDate},#{updateDate})")
     public void saveBlog(Blog blog);
 
-    @Update("update blog set title=#{title},content=#{content},firstPicture=#{firstPicture},flag=#{flag},views=#{views},appreciation=#{appreciation},shareStatement=#{shareStatement},commentabled=#{commentabled},recommend=#{recommend},createTime=#{createTime},updateTime=#{updateTime},typeId=#{typeId} where id = #{id}")
-    public void updateBlog(@Param("id") Long id,Blog blog);
+    @Update("update blog set title=#{title},content=#{content},firstPicture=#{firstPicture},flag=#{flag},views=#{views},appreciation=#{appreciation},shareStatement=#{shareStatement},commentabled=#{commentabled},recommend=#{recommend},updateTime=#{updateTime},typeId=#{typeId},description=#{description} where id = #{id}")
+    public void updateBlog(Blog blog);
 
 
     @Delete("delete from blog where id = #{id}")

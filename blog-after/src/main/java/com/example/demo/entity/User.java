@@ -36,9 +36,6 @@ public class User {
     @Column(name = "email",type = MySqlTypeConstant.CHAR)
     private String email;
 
-    @Column(name = "type",type = MySqlTypeConstant.INT)
-    private Integer type;
-
     @Column(name = "createDate",type = MySqlTypeConstant.DATETIME)
     private Date createDate;
 

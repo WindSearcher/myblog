@@ -3,7 +3,7 @@
 <head th:replace="admin/_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>文字新增</title>
+    <title>文章编辑</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css">
     <link rel="stylesheet" href="../../static/css/me.css">
@@ -56,13 +56,13 @@
 <div  class="m-container-small m-padded-tb-big">
     <div class="ui container">
         <!--博客整体表单-->
-        <form id="blog-form" action="#" th:action="@{/admin/blogs}" method="post" class="ui form">
-            <input type="hidden" name="id" id="randomId">
+        <form id="blog-form" action="#" th:action="@{/admin/blogs/update}" method="post" class="ui form">
+            <input type="hidden" name="id" id="randomId" th:value="${blog.getId()}">
             <input type="hidden" name="published">
             <div class="required field">
                 <div class="ui left labeled input">
                     <div class="ui selection compact purple basic dropdown label">
-                        <input type="hidden" value="原创" name="flag">
+                        <input type="hidden" value="原创" name="flag" th:value="${blog.getFlag()}">
                         <i class="dropdown icon"></i>
                         <div class="text">原创</div>
                         <div class="menu">
@@ -70,14 +70,24 @@
                             <div class="item" data-value="转载">转载</div>
                         </div>
                     </div>
-                    <input type="text" name="title" placeholder="标题">
+                    <input type="text" name="title" placeholder="标题" th:value="${blog.getTitle()}">
                 </div>
 
             </div>
 
             <div class="field">
                 <div id="md-content" style="z-index: 1 !important;">
-                    <textarea placeholder="博客内容" name="content" style="display: none"></textarea>
+                    <textarea placeholder="博客内容" name="content" style="display: none" th:text="${blog.getContent()}">
+                    [TOC]
+
+#### Disabled options
+
+- TeX (Based on KaTeX);
+- Emoji;
+- Task lists;
+- HTML tags decode;
+- Flowchart and Sequence Diagram;
+                </textarea>
                 </div>
 
             </div>
@@ -89,7 +99,7 @@
                         <label class="ui compact  purple basic label">分类</label>
                         <div class="ui  selection dropdown label">
                             <!-- type.id 会将id值赋给type对象-->
-                            <input type="hidden" name="type.id">
+                            <input type="hidden" name="typeId" th:value="${blog.getTypeId()}">
                             <i class="dropdown icon"></i>
                             <div class="default text"></div>
                             <div class="menu">
@@ -104,39 +114,36 @@
             <div class="field">
                 <div class="ui left labeled input">
                     <label class="ui purple basic label">首图</label>
-                    <input type="text" name="firstPicture" placeholder="首图引用地址">
+                    <input type="text" name="firstPicture" placeholder="首图引用地址" th:value="${blog.getFirstPicture()}">
                 </div>
             </div>
 
-            <!--<div class="required field">
-                <textarea name="description"  placeholder="博客描述..." maxlength="200"></textarea>
-            </div>-->
 
             <div class="inline fields">
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="recommend" class="hidden" checked name="recommend">
+                        <input type="checkbox" id="recommend" class="hidden" checked name="recommend" th:checked="${blog.recommend}">
                         <label for="recommend">推荐</label>
                     </div>
                 </div>
 
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="shareStatement" checked class="hidden" name="shareStatement">
+                        <input type="checkbox" id="shareStatement" class="hidden" name="shareStatement" th:checked="${blog.shareStatement}">
                         <label for="shareStatement">转载声明</label>
                     </div>
                 </div>
 
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox"  checked id="appreciation" class="hidden" name="appreciation">
+                        <input type="checkbox" id="appreciation" class="hidden" name="appreciation" th:checked="${blog.appreciation}">
                         <label for="appreciation">打赏</label>
                     </div>
                 </div>
 
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" checked id="commentabled" class="hidden" name="commentabled">
+                        <input type="checkbox" id="commentabled" class="hidden" name="commentabled" th:checked="${blog.commentabled}">
                         <label for="commentabled">评论</label>
                     </div>
                 </div>

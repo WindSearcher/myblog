@@ -4,6 +4,7 @@ import com.example.demo.entity.Blog;
 import com.example.demo.entity.Type;
 import com.example.demo.service.impl.BlogServiceImpl;
 import com.example.demo.service.impl.TypeServiceImpl;
+import com.example.demo.service.impl.UserServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +25,21 @@ public class IndexControoler {
     @Autowired
     private TypeServiceImpl typeService;
 
+    @Autowired
+    private UserServiceImpl userService;
+
     @GetMapping("/")
     public String index(@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum, Model model){
+        Long userId = 1L;
         PageHelper.startPage(pageNum,10,"createDate desc");
-        List<Blog> blogs = blogService.getAllBlog();
+        List<Blog> blogs = blogService.getAllBlog(userId);
         List<Type> types = typeService.getTopType(6);
 
         for(Blog blog : blogs){
             Type type = typeService.getType(blog.getTypeId());
             blog.setType(type);
+            //将user的信息给blog
+            blog.setUser(userService.findUserById(userId));
         }
 
         PageInfo<Blog> pageInfo = new PageInfo<>(blogs);

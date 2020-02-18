@@ -12,14 +12,14 @@ public interface TypeService {
 
     public Type getTypeByName(String name);
 
-    public List<Type> getAllType();
+    public List<Type> getAllType(Long userId);
 
     //取前几条
     public List<Type> getTopType(Integer pageSize);
 
     public List<Type> listType(Integer page, Integer pageSize);
 
-    public void updateType(Long id,Type type);
+    public void updateType(Type type);
 
     public void deleteType(Long id);
 }

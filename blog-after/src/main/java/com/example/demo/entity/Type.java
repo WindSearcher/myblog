@@ -24,6 +24,10 @@ public class Type {
     @NotBlank(message = "分类名称不能为空")
     private String name;
 
+    //用户ID
+    @Column(name = "userId",type = MySqlTypeConstant.BIGINT)
+    private Long userId;
+
     private List<Blog> blogs = new ArrayList<Blog>();
 
 }

@@ -37,9 +37,10 @@ public class BlogServiceImpl implements BlogService {
         return b;
     }
 
+    //根据用户ID查找所有文章
     @Override
-    public List<Blog> getAllBlog() {
-        return blogMapper.getAllBlog();
+    public List<Blog> getAllBlog(Long userId) {
+        return blogMapper.getAllBlog(userId);
     }
 
     //根据分类号查询
@@ -57,12 +58,9 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public void updateBlog(Long id, Blog blog) {
-        Blog b = blogMapper.getBlog(id);
-        if(b == null){
-            throw new NotFoundException("该博客不存在");
-        }
-        blogMapper.updateBlog(id,blog);
+    public void updateBlog(Blog blog) {
+
+        blogMapper.updateBlog(blog);
     }
 
     @Override

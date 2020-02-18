@@ -10,14 +10,14 @@ import java.util.List;
 public interface TypeMapper {
 
     @Transactional
-    @Insert("insert into type(name) values(#{name})")
+    @Insert("insert into type(name,userId) values(#{name},#{userId})")
     public void save(Type type);
 
     @Select("select * from type where id = #{id}")
     public Type getType(@Param("id") Long id);
 
-    @Select("select * from type")
-    public List<Type> getAllType();
+    @Select("select * from type where userId = #{userId}")
+    public List<Type> getAllType(@Param("userId") Long userId);
 
     //根据分类创建时间来展示
     @Select("select * from type order by id desc limit 0,#{pageSize}")
@@ -31,7 +31,7 @@ public interface TypeMapper {
 
     @Transactional
     @Update("update type set name = #{name} where id = #{id}")
-    public void updateType(Long id,Type type);
+    public void updateType(Type type);
 
     @Transactional
     @Delete("delete from type where id = #{id}")

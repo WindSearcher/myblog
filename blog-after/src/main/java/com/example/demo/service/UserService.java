@@ -7,5 +7,5 @@ public interface UserService {
 
     User checkUser(String username, String password);
 
-    User findUserById(Integer id);
+    User findUserById(Long id);
 }

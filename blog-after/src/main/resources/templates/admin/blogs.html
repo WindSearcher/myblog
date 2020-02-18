@@ -54,37 +54,7 @@
 <!--中间-->
 <div  class="m-container-small m-padded-tb-big">
     <div class="ui container">
-        <!--<form  method="post" class="ui segment form">
-            <input type="hidden" name="page">
 
-            <div class="inline fields">
-                <div class="field">
-                    <input type="text" name="title" placeholder="标题">
-                </div>
-                <div class="field">
-
-                    <div class="ui selection dropdown">
-                        <input type="hidden" name="typeId">
-                        <i class="dropdown icon"></i>
-                        <div class="default text">分类</div>
-
-                        <div class="menu">
-                            <div th:each="type : ${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">错误日志</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="ui checkbox">
-                        <input type="checkbox" id="recommend" name="recommend">
-                        <label for="recommend">推荐</label>
-                    </div>
-                </div>
-                <div class="field">
-                    <button class="ui mini purple basic button" id="search-btn" type="button"><i class="search icon"></i>搜索</button>
-                </div>
-            </div>
-
-        </form>-->
         <div id="table-container">
 
             <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
@@ -107,10 +77,10 @@
                 <tr th:each="blog:${pageInfo.list}">
                     <td th:text="${blog.getTitle()}">刻意练习清单</td>
                     <td th:text="${blog.getType().getName()}">认知升级</td>
-                    <td th:text="${blog.getRecommend()==1?'是':'否'}">是</td>
+                    <td th:text="${blog.getRecommend()?'是':'否'}">是</td>
                     <td th:text="${#dates.format(blog.getUpdateDate(),'yyyy-MM-dd')}">2017-10-02 09:45</td>
                     <td>
-                        <a href="#" th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui mini purple basic button">编辑</a>
+                        <a href="#" th:href="@{/admin/blogs/{id}/update(id=${blog.id})}" class="ui mini purple basic button">编辑</a>
                         <a th:href="@{/admin/blogs/{id}/delete(id=${blog.id})}" onclick="return confirm('您确定要删除吗？')" class="ui mini red basic button">删除</a>
                     </td>
                 </tr>
