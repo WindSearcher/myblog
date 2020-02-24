@@ -36,6 +36,14 @@ public class Comment {
     @Column(name = "createTime",type = MySqlTypeConstant.DATETIME)
     private Date createTime;
 
+    @Column(name = "content",type = MySqlTypeConstant.VARCHAR)
+    private String content;
+
+    //1表示是博主身份
+    @Column(name = "adminComment",type = MySqlTypeConstant.INT)
+    private Boolean adminComment;
+
+
     private Blog blog;
 
     private List<Comment> replyComments = new ArrayList<>();

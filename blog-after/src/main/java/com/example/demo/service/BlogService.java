@@ -12,6 +12,9 @@ public interface BlogService {
 
     public List<Blog> getAllBlog(Long userId);
 
+    //最新推荐
+    public List<Blog> getAllRecommendBlog();
+
     //根据分类ID查询
     public List<Blog> getAllTypeBlog(Long typeId);
 

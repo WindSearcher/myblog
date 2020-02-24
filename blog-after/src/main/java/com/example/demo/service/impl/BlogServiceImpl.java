@@ -30,9 +30,12 @@ public class BlogServiceImpl implements BlogService {
         if(blog == null){
             throw new NotFoundException("博客不存在");
         }
+        blogMapper.updateViews(blog.getViews()+1,blog.getId());
+
         Blog b = new Blog();
         //做一个深复制
         BeanUtils.copyProperties(blog,b);
+        b.setViews(b.getViews()+1);
         b.setContent(MarkdownUtils.markdownToHtmlExtensions(b.getContent()));
         return b;
     }
@@ -41,6 +44,13 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public List<Blog> getAllBlog(Long userId) {
         return blogMapper.getAllBlog(userId);
+    }
+
+
+    //最新推荐
+    @Override
+    public List<Blog> getAllRecommendBlog(){
+        return blogMapper.getAllRecommendBlog();
     }
 
     //根据分类号查询

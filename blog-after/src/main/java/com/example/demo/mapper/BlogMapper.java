@@ -18,7 +18,8 @@ public interface BlogMapper {
     @Select("select * from blog where typeId = #{typeId}")
     public List<Blog> getAllTypeBlog(@Param("typeId") Long typeId);
 
-
+    @Select("select * from blog where recommend = 1 order by createDate desc limit 0,6")
+    public List<Blog> getAllRecommendBlog();
 
     @Insert("insert into blog(title,content,firstPicture,flag,views,appreciation,shareStatement,commentabled,recommend,typeId,userId,description,createDate,updateDate) values(#{title},#{content},#{firstPicture},#{flag},#{views},#{appreciation},#{shareStatement},#{commentabled},#{recommend},#{typeId},#{userId},#{description},#{createDate},#{updateDate})")
     public void saveBlog(Blog blog);
@@ -26,6 +27,8 @@ public interface BlogMapper {
     @Update("update blog set title=#{title},content=#{content},firstPicture=#{firstPicture},flag=#{flag},views=#{views},appreciation=#{appreciation},shareStatement=#{shareStatement},commentabled=#{commentabled},recommend=#{recommend},updateTime=#{updateTime},typeId=#{typeId},description=#{description} where id = #{id}")
     public void updateBlog(Blog blog);
 
+    @Update("update blog set views=#{views} where id=#{id}")
+    public void updateViews(@Param("views") Integer views,@Param("id") Long id);
 
     @Delete("delete from blog where id = #{id}")
     public void deleteBlog(@Param("id") Long id);

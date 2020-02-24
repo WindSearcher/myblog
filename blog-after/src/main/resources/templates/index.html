@@ -64,10 +64,10 @@
                                         <div class="ui  horizontal link list">
                                             <div class="item">
                                                 <img src="https://unsplash.it/100/100?image=1005" th:src="${blog.getUser().avatar}" alt="" class="ui avatar image">
-                                                <div class="content"><a href="#"  class="header">李仁密</a></div>
+                                                <div class="content"><a href="#"  th:text="${blog.getUser().nickname}">李仁密</a></div>
                                             </div>
                                             <div class="item">
-                                                <i class="calendar icon"></i><span th:text="${#dates.format(blog.createDate,'yyyy-MM-dd')}">2017-10-01</span>
+                                                <i class="calendar icon"></i><span  th:text="${#dates.format(blog.createDate,'yyyy-MM-dd')}">2017-10-01</span>
                                             </div>
                                             <div class="item">
                                                 <i class="eye icon"></i> <span th:text="${blog.views}">2342</span>
@@ -75,7 +75,7 @@
                                         </div>
                                     </div>
                                     <div class="right aligned five wide column">
-                                        <a href="#" target="_blank" class="ui purple basic label m-padded-tiny m-text-thin" th:text="${blog.getType().getName()}">认知升级</a>
+                                        <a href="#" target="_blank" class="ui purple basic label m-text-thin" th:text="${blog.getType().getName()}">认知升级</a>
                                     </div>
                                 </div>
                             </div>
@@ -108,8 +108,31 @@
             <!--右边的top-->
             <div class="five wide column">
 
-                <!--分类-->
+                <!--关于我-->
                 <div class="ui segments">
+                    <div class="ui top segment attached">
+                        <div class="ui header centered aligned">关于我</div>
+                    </div>
+                    <div class="ui attached segment">
+                        <p class="m-text" style="text-align:center">淡茶一杯</p>
+                        <p class="m-text" style="text-align:center">闲看庭前花开花落</p>
+                    </div>
+                    <div class="ui attached segment" style="text-align:center">
+                        <div class="ui orange basic left pointing label">编程</div>
+                        <div class="ui orange basic left pointing label">写作</div>
+                        <div class="ui orange basic left pointing label">思考</div>
+                        <div class="ui orange basic left pointing label">运动</div>
+                    </div>
+                    <div class="ui bottom attached segment" style="text-align:center">
+                        <a href="https://github.com/WindSearcher" class="ui github circular icon button" data-content="GitHub" data-position="bottom center"><i class="github icon"></i></a>
+                        <a href="https://blog.csdn.net/qq_40511966" class="ui csdn circular icon button" data-content="CSDN" data-position="bottom center"><i class="linux icon"></i></a>
+                        <a href="#" class="ui qq circular icon button" data-content="1793521005" data-position="bottom center"><i class="qq icon"></i></a>
+                        <a href="https://ncutea.gitee.io/" class="ui ncu circular icon button" data-content="技术交流协会" data-position="bottom center"><i class="jsfiddle icon"></i></a>
+                    </div>
+                </div>
+
+                <!--分类-->
+                <div class="ui segments m-margin-top-large">
                     <div class="ui secondary segment">
                         <div class="ui two column grid">
                             <div class="column">
@@ -130,24 +153,6 @@
                     </div>
                 </div>
 
-                <!--标签-->
-                <div class="ui segments m-margin-top-large">
-                    <div class="ui secondary segment">
-                        <div class="ui two column grid">
-                            <div class="column">
-                                <i class="tags icon"></i>标签
-                            </div>
-                            <div class="right aligned column">
-                                <a href="#" th:href="@{/tags/-1}" target="_blank">more <i class="angle double right icon"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ui purple segment">
-                        <a href="#" th:href="@{/tags/{id}(id=${tag.id})}"  target="_blank" class="ui purple basic left pointing label m-margin-tb-tiny" th:each="tag : ${tags}">
-                            <span th:text="${tag.name}">方法论</span> <div class="detail" th:text="${tag.blogs.size()}">23</div>
-                        </a>
-                    </div>
-                </div>
 
                 <!--最新推荐-->
                 <div class="ui segments m-margin-top-large">
@@ -219,6 +224,11 @@
     $('.menu.toggle').click(function () {
         $('.m-item').toggleClass('m-mobile-hide');
     });
+
+    $('.ncu').popup();
+    $('.csdn').popup();
+    $('.qq').popup();
+    $('.github').popup();
 </script>
 </body>
 </html>
