@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BlogServiceImpl implements BlogService {
@@ -54,8 +56,8 @@ public class BlogServiceImpl implements BlogService {
     }
 
     //根据分类号查询
-    public List<Blog> getAllTypeBlog(Long typeId){
-        return blogMapper.getAllTypeBlog(typeId);
+    public List<Blog> getAllTypeBlog(Long typeId,Long userId){
+        return blogMapper.getAllTypeBlog(typeId,userId);
     }
 
     @Override
@@ -76,5 +78,23 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public void deleteBlog(Long id) {
         blogMapper.deleteBlog(id);
+    }
+
+    @Override
+    public Map<String,List<Blog>> archiveBlog(){
+
+        List<String> years = blogMapper.findGroupYear();
+        Map<String,List<Blog>> map = new HashMap<>();
+
+        for(String year : years){
+            map.put(year,blogMapper.findBlogByYear(year));
+        }
+
+        return map;
+    }
+
+    @Override
+    public Long countBlog(){
+        return blogMapper.countBlog();
     }
 }

@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import com.example.demo.entity.Blog;
 import com.example.demo.entity.Type;
 import com.example.demo.service.impl.BlogServiceImpl;
-import com.example.demo.service.impl.CommentServiceImpl;
 import com.example.demo.service.impl.TypeServiceImpl;
 import com.example.demo.service.impl.UserServiceImpl;
 import com.github.pagehelper.PageHelper;
@@ -15,31 +14,39 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-public class IndexControoler {
-
-    @Autowired
-    private BlogServiceImpl blogService;
+public class TypeShowController {
 
     @Autowired
     private TypeServiceImpl typeService;
 
     @Autowired
-    private UserServiceImpl userService;
+    private BlogServiceImpl blogService;
 
     @Autowired
-    private CommentServiceImpl commentService;
+    private UserServiceImpl userService;
 
-    @GetMapping("/")
-    public String index(@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum, Model model){
+    @GetMapping("/types/{id}")
+    public String types(@PathVariable Long id, @RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum, Model model){
+
+        //这里由于不是做博客系统，没有开放注册接口，只是用来给自己写博客的
+        List<Type> types = typeService.getAllType(1L);
         Long userId = 1L;
+
+        if(id == -1){
+            //根据这个id查询博客分页
+            id = types.get(0).getId();
+        }
+
+        for(Type type : types){
+            List<Blog> blogList = blogService.getAllTypeBlog(type.getId(),userId);
+            type.setBlogs(blogList);
+        }
+
         PageHelper.startPage(pageNum,10,"createDate desc");
-        List<Blog> blogs = blogService.getAllBlog(userId);
-        List<Type> types = typeService.getTopType(6);
-        List<Blog> recommendedBlogs = blogService.getAllRecommendBlog();
+        List<Blog> blogs = blogService.getAllTypeBlog(id,userId);
         for(Blog blog : blogs){
             Type type = typeService.getType(blog.getTypeId());
             blog.setType(type);
@@ -49,30 +56,12 @@ public class IndexControoler {
 
         PageInfo<Blog> pageInfo = new PageInfo<>(blogs);
 
-        for(Type type : types){
-            List<Blog> blogList = blogService.getAllTypeBlog(type.getId(),userId);
-            type.setBlogs(blogList);
-        }
+
         model.addAttribute("types",types);
         model.addAttribute("pageInfo",pageInfo);
-        model.addAttribute("recommendedBlogs",recommendedBlogs);
-        return "index";
-    }
 
-
-    @GetMapping("/blog/{id}")
-    public String blog(@PathVariable Long id, Model model, HttpSession session){
-        Blog blog = blogService.getAndConvert(id);
-
-        blog.setUser(userService.findUserById(blog.getUserId()));
-        blog.setType(typeService.getType(blog.getTypeId()));
-        model.addAttribute("blog",blog);
-        return "blog";
-    }
-
-
-    @GetMapping("/about")
-    public String about(){
-        return "about";
+        System.out.println("--------------activeTypeId-----------:"+id);
+        model.addAttribute("activeTypeId",id);
+        return "types";
     }
 }

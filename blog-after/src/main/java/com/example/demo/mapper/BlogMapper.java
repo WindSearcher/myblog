@@ -15,8 +15,9 @@ public interface BlogMapper {
     @Select("select * from blog where userId = #{userId}")
     public List<Blog> getAllBlog(@Param("userId") Long userId);
 
-    @Select("select * from blog where typeId = #{typeId}")
-    public List<Blog> getAllTypeBlog(@Param("typeId") Long typeId);
+    //根据分类ID和用户ID查询博客
+    @Select("select * from blog where typeId = #{typeId} and userId=#{userId}")
+    public List<Blog> getAllTypeBlog(@Param("typeId") Long typeId,@Param("userId") Long userId);
 
     @Select("select * from blog where recommend = 1 order by createDate desc limit 0,6")
     public List<Blog> getAllRecommendBlog();
@@ -33,7 +34,12 @@ public interface BlogMapper {
     @Delete("delete from blog where id = #{id}")
     public void deleteBlog(@Param("id") Long id);
 
+    @Select("select date_format(createDate,'%Y') as year from blog group by year order by year desc")
+    public List<String> findGroupYear();
 
+    @Select("select * from blog where date_format(createDate,'%Y') = #{year}")
+    public List<Blog> findBlogByYear(@Param("year") String year);
 
-
+    @Select("select count(id) from blog")
+    public Long countBlog();
 }

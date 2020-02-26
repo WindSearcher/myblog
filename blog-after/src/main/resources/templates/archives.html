@@ -10,7 +10,7 @@
 <body>
 
 <!--导航-->
-<nav th:replace="_fragments :: menu(4)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
+<nav th:replace="_fragments :: menu(3)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui purple header item">Blog</h2>
@@ -42,77 +42,25 @@
                     <h3 class="ui purple header">归档</h3>
                 </div>
                 <div class="right aligned column">
-                    共 <h2 class="ui orange header m-inline-block m-text-thin"> 114 </h2> 篇
+                    共 <h2 class="ui orange header m-inline-block m-text-thin" th:text="${blogCount}"> 114 </h2> 篇
                 </div>
             </div>
         </div>
 
-        <h3 class="ui center aligned header">2017</h3>
+        <th:block th:each="item : ${archiveMap}">
+            <h3 class="ui center aligned header" th:text="${item.key}">2017</h3>
+            <div class="ui fluid vertical menu">
+                <a href="#" class="item" target="_blank" th:each="blog : ${item.value}" th:href="@{/blog/{id}(id=${blog.id})}">
+                <span>
+                    <i class="mini purple circle icon"></i><span th:text="${blog.title}">关于刻意练习的清单</span>
+                    <div class="ui basic purple left pointing label m-padded-tb-mini" th:text="${#dates.format(blog.createDate,'MMMdd')}">9月03号</div>
+                </span>
+                    <div class="ui orange basic right pointing label" th:text="${blog.flag}">原创</div>
+                </a>
+            </div>
+        </th:block>
 
-        <div class="ui fluid vertical menu">
-            <a href="#" class="item" target="_blank">
-                <span>
-                    <i class="mini purple circle icon"></i>关于刻意练习的清单
-                    <div class="ui basic purple left pointing label m-padded-tb-mini">9月03号</div>
-                </span>
-                <div class="ui orange basic right pointing label">原创</div>
-            </a>
-            <a href="#" class="item" target="_blank">
-                <span>
-                    <i class="mini purple circle icon"></i>关于刻意练习的清单
-                    <div class="ui basic purple left pointing label m-padded-tb-mini">9月03号</div>
-                </span>
-                <div class="ui orange basic right pointing label">原创</div>
-            </a>
-            <a href="#" class="item" target="_blank">
-                <span>
-                    <i class="mini purple circle icon"></i>关于刻意练习的清单
-                    <div class="ui basic purple left pointing label m-padded-tb-mini">9月03号</div>
-                </span>
-                <div class="ui orange basic right pointing label">原创</div>
-            </a>
-            <a href="#" class="item" target="_blank">
-                <span>
-                    <i class="mini purple circle icon"></i>关于刻意练习的清单
-                    <div class="ui basic purple left pointing label m-padded-tb-mini">9月03号</div>
-                </span>
-                <div class="ui orange basic right pointing label">原创</div>
-            </a>
 
-        </div>
-
-        <h3 class="ui center aligned header">2016</h3>
-
-        <div class="ui fluid vertical menu">
-            <a href="#" class="item" target="_blank">
-                <span>
-                    <i class="mini purple circle icon"></i>关于刻意练习的清单
-                    <div class="ui basic purple left pointing label m-padded-tb-mini">9月03号</div>
-                </span>
-                <div class="ui orange basic right pointing label">原创</div>
-            </a>
-            <a href="#" class="item" target="_blank">
-                <span>
-                    <i class="mini purple circle icon"></i>关于刻意练习的清单
-                    <div class="ui basic purple left pointing label m-padded-tb-mini">9月03号</div>
-                </span>
-                <div class="ui orange basic right pointing label">原创</div>
-            </a>
-            <a href="#" class="item" target="_blank">
-                <span>
-                    <i class="mini purple circle icon"></i>关于刻意练习的清单
-                    <div class="ui basic purple left pointing label m-padded-tb-mini">9月03号</div>
-                </span>
-                <div class="ui orange basic right pointing label">原创</div>
-            </a>
-            <a href="#" class="item" target="_blank">
-                <span>
-                    <i class="mini purple circle icon"></i>关于刻意练习的清单
-                    <div class="ui basic purple left pointing label m-padded-tb-mini">9月03号</div>
-                </span>
-                <div class="ui orange basic right pointing label">原创</div>
-            </a>
-        </div>
 
     </div>
 </div>
